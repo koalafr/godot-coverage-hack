@@ -167,7 +167,7 @@ cat >$EXPORT_FOLDER/$EXPORT_FILE << ENDOFMESSAGE
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 <coverage line-rate="1" branch-rate="1" \
-lines-covered="$NO_GD_TESTING_FILES" \
+lines-covered="${#MATCHED_TESTS[@]}" \
 lines-valid="$NO_GD_FILES_TO_TEST" \
 branches-covered="0" \
 branches-valid="0" \
