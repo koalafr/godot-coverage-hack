@@ -3,7 +3,7 @@
 if [[ $1 == "--help" ]]
 then
 cat << ENDOFMESSAGE
-Godot Coverage Hack, version 1.0.0-release
+Godot Coverage Hack, version 1.0.1-release
 Usage: godot_coverage_hack.sh [option]
 Options:
     --verbose
@@ -107,7 +107,7 @@ main () {
         echo -e "[${GREEN}✓${NO_COLOR}] Done indexing tests\n"
 
         echo -e "Running basic code (file) coverage..."
-        if [[ $1 == "--verbose" ]]; then echo; fi
+
         MISSING_TESTS=()
         MATCHED_TESTS=()
         for script in $GD_FILES_TO_TEST
@@ -117,17 +117,30 @@ main () {
             do
                 if [[ $script == $test ]]
                 then
-                    if [[ $1 == "--verbose" ]]; then echo -e "[${GREEN}✓${NO_COLOR}] Found unit test for" $script; fi
                     MATCHED_TESTS+=("$test")
                     match=1
                 fi
             done
             if [[ $match == 0 ]]
             then
-                if [[ $1 == "--verbose" ]]; then echo -e "[${RED}X${NO_COLOR}] Missing test for" $script; fi
                 MISSING_TESTS+=("$script")
             fi
         done
+
+        if [[ $1 == "--verbose" ]]
+        then
+            sorted=($(echo "${MATCHED_TESTS[@]}" | sed 's/ /\n/g' | sort))
+            echo
+            for name in ${sorted[@]}
+            do
+                echo -e "[${GREEN}✓${NO_COLOR}] Found unit test for" $name
+            done
+            sorted=($(echo "${MISSING_TESTS[@]}" | sed 's/ /\n/g' | sort))
+            for name in ${sorted[@]}
+            do
+                echo -e "[${RED}X${NO_COLOR}] Missing test for" $name;
+            done
+        fi
 
         echo -e ${YELLOW}
         WARNING="[!] Warning: test without matching script: test_"

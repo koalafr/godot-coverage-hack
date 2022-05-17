@@ -24,7 +24,7 @@
 ## Description
 
 ```
-Godot Coverage Hack, version 1.0.0-release
+Godot Coverage Hack, version 1.0.1-release
 Usage: godot_coverage_hack.sh [option]
 Options:
     --verbose
