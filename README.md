@@ -1,11 +1,25 @@
 # godot-coverage-hack
 
+* [TL;DR](#tldr)
 * [Description](#description)
 * [Installation](#installation)
-* [Usage](#usage)
 * [Options](#options)
+* [Usage](#usage)
 * [CI Usage](#ci-usage)
-* [TL;DR](#tldr)
+* [Contribute](#contribute)
+* [Code of Conduct](#code-of-conduct)
+* [License](#license)
+
+## TLDR
+
+- Get the tool in your project & use bash to set it as executable
+- `chmod +x ./godot_coverage_hack.sh`
+- Create some unit tests
+- `mkdir -p test/unit && touch test/unit/test_Koala.gd`
+- Create some features
+- `touch Koala.gd`
+- Optional: Implement Koala features and unit test
+- Run `./godot_coverage_hack.sh`
 
 ## Description
 
@@ -45,13 +59,25 @@ Information:
 
 - Allow executing file: `chmod +x ./godot_coverage_hack.sh`
 
-- Optional: Copy the tool to `project_root/tools/`
+- Optional: Copy the tool to `<project_root>/tools/`
+
+
+## Options
+
+Godot Coverage Hack warns about tests with no matching scripts
+
+- `--verbose` prints out all file names as it misses and matches
+
+- `--help` prints out information then exits
+
 
 ## Usage
 
 - Navigate to your godot project root directory
 
 - Run the tool in bash: `./tools/godot_coverage_hack.sh`
+
+- Example output:
 
 ```
 $ ./tools/godot_coverage_hack.sh --verbose
@@ -91,26 +117,21 @@ Coverage:        50%
 [✓] Coverage report finished
 ```
 
-## Options
-
-Godot Coverage Hack warns about tests with no matching scripts
-
-- `--verbose` prints out all file names as it misses and matches
-
-- `--help` prints out information then exits
-
 ## CI Usage
 
 - Add `test/reports/` to `.gitignore`
 
-- Copy the tool to a convienent location: `project_root/tools/`
+- Copy the tool to a convenient location: `<project_root>/tools/`
 
-- Add tool to coverage job in yaml config
+- Add a new coverage job in yaml config and run the tool
 
-- Enjoy pseudo-coverage report badge
+- Parse the stdout or the cobertura xml report file for coverage percentage
 
-- Example yaml job with valid parsing (Gitlab runner on ubuntu image)
+- Enjoy pseudo-coverage report badge, and increase it by adding unit tests
 
+Example yaml for a coverage-report-job with valid parsing
+
+Gitlab runner on ubuntu image:
 ```yaml
 coverage-report-job:
   variables:
@@ -127,11 +148,14 @@ coverage-report-job:
         path: $TEST_OUTPUT_FOLDER/coverage_*.xml
 ```
 
-## TLDR
+## Contribute
 
-- Get the script & use bash to
-- `chmod +x ./godot_coverage_hack.sh`
-- `mkdir -p test/unit && touch test/unit/test_Koala.gd`
-- `touch Koala.gd`
-- Implement Koala features and unit test
-- Run `./godot_coverage_hack.sh`
+[Contributing to Godot Coverage Hack](/docs/CONTRIBUTING.md)
+
+## Code of Conduct
+
+[Contributor Covenant](/docs/CODE_OF_CONDUCT.md)
+
+## License
+
+[MIT license](/LICENSE)
